@@ -1,0 +1,108 @@
+-- Active: 1716911674694@@127.0.0.1@3306@qrt_master
+
+create table battalion (
+    battalion_id INT AUTO_INCREMENT PRIMARY KEY,
+    battalion_name VARCHAR(200) NOT NULL UNIQUE
+)
+
+create table platoon (
+    platoon_id INT AUTO_INCREMENT PRIMARY KEY,
+    platoon_name VARCHAR(200) NOT NULL,
+    battalion_id INT NOT NULL,
+    CONSTRAINT battalion_platoon_name UNIQUE (battalion_id, platoon_name)
+)
+
+create table users (
+    id int AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE,
+    password VARCHAR(1000) NOT NULL,
+    role ENUM(
+        'platoon',
+        'battalion',
+        'admin'
+    ) NOT NULL, -- platoon / battalion / admin
+    level_id INT NOT NULL,
+    created_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    deleted_date DATETIME NULL
+)
+
+create view users_view as (
+    SELECT *
+    FROM users
+        INNER JOIN platoon ON platoon.platoon_id = level_id
+    where
+        role = 'platoon'
+    UNION ALL
+    SELECT *
+    FROM users
+        INNER JOIN platoon ON platoon.battalion_id = level_id
+    where
+        role = 'battalion'
+)
+
+create table soldiers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    f_name VARCHAR(50) NOT NULL,
+    l_name VARCHAR(50) NOT NULL,
+    personal_id VARCHAR(20) NOT NULL,
+    department VARCHAR(50) NOT NULL,
+    role VARCHAR(50) NOT NULL,
+    platoon_id INT NOT NULL,
+    created_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    deleted_date DATETIME NULL
+)
+
+create table soldier_activity (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    soldier_id INT NOT NULL,
+    platoon_id INT NOT NULL,
+    location VARCHAR(200) NOT NULL,
+    note VARCHAR(1000) NULL,
+    start_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    end_date DATETIME NULL
+)
+
+create table equipment (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    platoon_id INT NOT NULL,
+    name VARCHAR(200) NOT NULL,
+    type ENUM('controlled', 'regular') NOT NULL
+)
+
+create table equipment_registry (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    platoon_id INT NOT NULL,
+    equipment_id INT NOT NULL,
+    current_count INT NOT NULL,
+    required_count INT NOT NULL,
+    register_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    deleted_date DATETIME NULL
+)
+
+create table controlled_equipment_registry (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    platoon_id INT NOT NULL,
+    equipment_id INT NOT NULL,
+    soldier_id INT NOT NULL,
+    item_code VARCHAR(50) NOT NULL,
+    register_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    deleted_date DATETIME NULL
+)
+
+create table equipment_signing (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    soldier_id INT NOT NULL,
+    platoon_id INT NOT NULL,
+    equipment_id INT NOT NULL,
+    start_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    deleted_date DATETIME NULL
+)
+
+create table controlled_equipment_signing (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    soldier_id INT NOT NULL,
+    platoon_id INT NOT NULL,
+    equipment_id INT NOT NULL,
+    start_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    deleted_date DATETIME NULL
+)
