@@ -1,10 +1,12 @@
 import { config } from "../config";
 import jwt from "jsonwebtoken";
 
+export type TRole = "admin" | "battalion" | "platoon";
+
 type TokenPayload = {
   id: number;
   username: string;
-  role: "admin" | "battalion" | "platoon";
+  role: TRole;
   level_id: number;
   platoons: {
     platoon_id: number;

@@ -14,9 +14,10 @@ authRouter.post("/login", async (req, res) => {
     else if (!password) respond401(res, "password is required");
     else {
       const [users]: [{ username: string; password: string; id: number }[]] =
-        (await pool.query(`SELECT * FROM users WHERE username = ?`, [
-          username,
-        ])) as any;
+        (await pool.query(
+          `SELECT * FROM users WHERE username = ? AND deleted_date IS NULL`,
+          [username]
+        )) as any;
       if (!users.length) {
         respond401(res, "username doesn't exist");
       } else {

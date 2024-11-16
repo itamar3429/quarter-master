@@ -45,7 +45,8 @@ create or replace view users_view as (
                 INNER JOIN platoon ON platoon.platoon_id = level_id
                 INNER JOIN battalion USING (battalion_id)
             where
-                role = 'platoon'
+                deleted_date IS NULL
+                AND role = 'platoon'
             UNION ALL
             SELECT *
             FROM
@@ -53,7 +54,8 @@ create or replace view users_view as (
                 INNER JOIN platoon ON platoon.battalion_id = level_id
                 INNER JOIN battalion USING (battalion_id)
             where
-                role = 'battalion'
+                deleted_date IS NULL
+                AND role = 'battalion'
                 OR (
                     role = 'admin'
                     AND level_id != 0
@@ -64,7 +66,8 @@ create or replace view users_view as (
                 INNER JOIN platoon ON TRUE
                 INNER JOIN battalion USING (battalion_id)
             where
-                role = 'admin'
+                deleted_date IS NULL
+                AND role = 'admin'
                 AND level_id = 0
         ) a
 )

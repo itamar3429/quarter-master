@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { jwtVerify } from "../utils/jwt";
 
-const roleEnum = {
+export const roleEnum = {
   admin: 1,
   battalion: 2,
   platoon: 3,
