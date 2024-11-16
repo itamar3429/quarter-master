@@ -26,18 +26,47 @@ create table users (
     deleted_date DATETIME NULL
 )
 
-create view users_view as (
-    SELECT *
-    FROM users
-        INNER JOIN platoon ON platoon.platoon_id = level_id
-    where
-        role = 'platoon'
-    UNION ALL
-    SELECT *
-    FROM users
-        INNER JOIN platoon ON platoon.battalion_id = level_id
-    where
-        role = 'battalion'
+create or replace view users_view as (
+    SELECT
+        id,
+        username,
+        role,
+        level_id,
+        battalion_name,
+        platoon_id,
+        platoon_name,
+        battalion_id,
+        created_date,
+        deleted_date
+    FROM (
+            SELECT *
+            FROM
+                users
+                INNER JOIN platoon ON platoon.platoon_id = level_id
+                INNER JOIN battalion USING (battalion_id)
+            where
+                role = 'platoon'
+            UNION ALL
+            SELECT *
+            FROM
+                users
+                INNER JOIN platoon ON platoon.battalion_id = level_id
+                INNER JOIN battalion USING (battalion_id)
+            where
+                role = 'battalion'
+                OR (
+                    role = 'admin'
+                    AND level_id != 0
+                )
+            UNION ALL
+            SELECT *
+            FROM users
+                INNER JOIN platoon ON TRUE
+                INNER JOIN battalion USING (battalion_id)
+            where
+                role = 'admin'
+                AND level_id = 0
+        ) a
 )
 
 create table soldiers (

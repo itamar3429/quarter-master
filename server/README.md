@@ -31,3 +31,12 @@ DB_PASSWORD=
 DB_DB=
 NODE_ENV=
 ```
+
+## required files
+
+under the src folder,
+add the following files
+./src/ssh/private.key
+./src/ssh/public.key
+
+the files need to be compatible for RS256 algorithm

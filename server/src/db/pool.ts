@@ -8,5 +8,6 @@ export const pool = mysql
     password: config.mysqlPassword,
     port: config.mysqlPort,
     connectionLimit: 20,
+    database: config.mysqlDB,
   })
   .promise();

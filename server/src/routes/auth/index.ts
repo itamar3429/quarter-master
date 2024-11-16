@@ -2,6 +2,8 @@ import { Router } from "express";
 import bcrypt from "bcrypt";
 import { pool } from "../../db/pool";
 import { respond401 } from "../../utils/responses";
+import { getTokenForUser } from "./token";
+import { requireAuth } from "../../middleware/auth";
 
 export const authRouter = Router();
 
@@ -10,11 +12,10 @@ authRouter.post("/login", async (req, res) => {
   if (!username) respond401(res, "username is required");
   else if (!password) respond401(res, "password is required");
   else {
-    const [users]: [{ username: string; password: string }[]] =
-      (await pool.query(`SELECT * FROM users WHERE username = :username`, {
+    const [users]: [{ username: string; password: string; id: number }[]] =
+      (await pool.query(`SELECT * FROM users WHERE username = ?`, [
         username,
-      })) as any;
-    console.log(users);
+      ])) as any;
     if (!users.length) {
       respond401(res, "username doesn't exist");
     } else {
@@ -22,10 +23,18 @@ authRouter.post("/login", async (req, res) => {
       const results = await bcrypt.compare(password, hashedPassword);
       if (!results) respond401(res, "Password is incorrect");
       else {
-        // return jwt token
+        const token = await getTokenForUser(users[0].id);
+        res.json({
+          token,
+          success: true,
+        });
       }
     }
   }
 });
-authRouter.post("/user", (req, res) => {});
-authRouter.put("/:userID", (req, res) => {});
+
+authRouter.get("/test", requireAuth(), (req, res) => {
+  res.json({
+    success: true,
+  });
+});
