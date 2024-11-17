@@ -9,7 +9,9 @@ import { pool } from "../../db/pool";
 
 export const hrRouter = Router();
 
-hrRouter.get("/soldier", requireAuth(), async (req, res) => {
+hrRouter.use(requireAuth());
+
+hrRouter.get("/soldier", async (req, res) => {
   try {
     const data = await query(`
       SELECT a.*, 
@@ -28,7 +30,7 @@ hrRouter.get("/soldier", requireAuth(), async (req, res) => {
     respond500(res);
   }
 });
-hrRouter.get("/soldier/:id", requireAuth(), async (req, res) => {
+hrRouter.get("/soldier/:id", async (req, res) => {
   try {
     if (!+req.params.id) {
       respond401(res, "id must be a number");
@@ -59,7 +61,7 @@ hrRouter.get("/soldier/:id", requireAuth(), async (req, res) => {
 
 hrRouter.post(
   "/soldier",
-  requireAuth(),
+
   validateSchema(newSoldier),
   async (req, res) => {
     try {
@@ -108,7 +110,7 @@ hrRouter.post(
 );
 hrRouter.put(
   "/soldier/:id",
-  requireAuth(),
+
   validateSchema(updateSoldier),
   async (req, res) => {
     try {
@@ -184,7 +186,7 @@ hrRouter.put(
 
 hrRouter.post(
   "/solder/:id/activity",
-  requireAuth(),
+
   validateSchema(newSoldierActivity),
   async (req, res) => {
     if (!+req.params.id) {
