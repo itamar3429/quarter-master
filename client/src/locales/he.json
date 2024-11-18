@@ -1,0 +1,19 @@
+{
+  "login": {
+    "username": "שם משתמש",
+    "username_ins": "הכנס שם משתמש",
+    "password": "סיסמה",
+    "password_ins": "הכנס סיסמה",
+    "i": "התחבר",
+    "error": "שם המשתמש או הסיסמה אינם נכונים"
+  },
+  "nav": {
+    "users": "משתמשים",
+    "home": "בית",
+    "equipments": "ציוד",
+    "controlled_equipments": "צל״ם",
+    "soldiers": "חיילים",
+    "org": "מבנה גדודי",
+    "logout": "התנתק"
+  }
+}

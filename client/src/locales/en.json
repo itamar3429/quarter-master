@@ -1,0 +1,19 @@
+{
+  "login": {
+    "i": "Login",
+    "username": "Username",
+    "username_ins": "Please Provide your username",
+    "password": "Password",
+    "password_ins": "Please Provide your password",
+    "error": "Username or Password are incorrect"
+  },
+  "nav": {
+    "users": "User Management",
+    "home": "Home",
+    "equipments": "Equipments",
+    "controlled_equipments": "Controlled Equipments",
+    "soldiers": "Soldiers",
+    "org": "Battalion Structure",
+    "logout": "Logout"
+  }
+}
