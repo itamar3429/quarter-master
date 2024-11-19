@@ -1,45 +1,45 @@
-<script setup>
-import { ref, computed } from 'vue';
-import { RouterLink } from 'vue-router';
-import { mdiMinus, mdiPlus } from '@mdi/js';
-import { getButtonColor } from '@/colors.js';
-import BaseIcon from '@/components/template/Elements/BaseIcon.vue';
-import AsideMenuList from '@/components/template/Layout/AsideMenuList.vue';
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import { RouterLink } from 'vue-router'
+import { mdiMinus, mdiPlus } from '@mdi/js'
+import { getButtonColor } from '@/colors'
+import BaseIcon from '@/components/template/Elements/BaseIcon.vue'
+import AsideMenuList from '@/components/template/Layout/AsideMenuList.vue'
 
 const props = defineProps({
   item: {
     type: Object,
-    required: true
+    required: true,
   },
-  isDropdownList: Boolean
-});
+  isDropdownList: Boolean,
+})
 
-const emit = defineEmits(['menu-click']);
+const emit = defineEmits(['menu-click'])
 
-const hasColor = computed(() => props.item && props.item.color);
+const hasColor = computed(() => props.item && props.item.color)
 
 const asideMenuItemActiveStyle = computed(() =>
-  hasColor.value ? '' : 'aside-menu-item-active font-bold'
-);
+  hasColor.value ? '' : 'aside-menu-item-active font-bold',
+)
 
-const isDropdownActive = ref(false);
+const isDropdownActive = ref(false)
 
 const componentClass = computed(() => [
   props.isDropdownList ? 'py-3 px-6 text-sm' : 'py-3',
   hasColor.value
     ? getButtonColor(props.item.color, false, true)
-    : `aside-menu-item dark:text-slate-300 dark:hover:text-white`
-]);
+    : `aside-menu-item dark:text-slate-300 dark:hover:text-white`,
+])
 
-const hasDropdown = computed(() => !!props.item.menu);
+const hasDropdown = computed(() => !!props.item.menu)
 
 const menuClick = (event) => {
-  emit('menu-click', event, props.item);
+  emit('menu-click', event, props.item)
 
   if (hasDropdown.value) {
-    isDropdownActive.value = !isDropdownActive.value;
+    isDropdownActive.value = !isDropdownActive.value
   }
-};
+}
 </script>
 
 <template>
@@ -66,7 +66,7 @@ const menuClick = (event) => {
         class="grow text-ellipsis line-clamp-1"
         :class="[
           { 'pr-12': !hasDropdown },
-          vSlot && vSlot.isExactActive ? asideMenuItemActiveStyle : ''
+          vSlot && vSlot.isExactActive ? asideMenuItemActiveStyle : '',
         ]"
         >{{ item.label }}</span
       >

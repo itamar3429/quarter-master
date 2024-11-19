@@ -1,36 +1,36 @@
-<script setup>
-import { mdiLogout, mdiClose } from '@mdi/js';
-import { computed } from 'vue';
-import AsideMenuList from '@/components/template/Layout/AsideMenuList.vue';
-import AsideMenuItem from '@/components/template/Layout/AsideMenuItem.vue';
-import BaseIcon from '@/components/template/Elements/BaseIcon.vue';
-import { useI18n } from 'vue-i18n';
+<script setup lang="ts">
+import { mdiLogout, mdiClose } from '@mdi/js'
+import { computed } from 'vue'
+import AsideMenuList from '@/components/template/Layout/AsideMenuList.vue'
+import AsideMenuItem from '@/components/template/Layout/AsideMenuItem.vue'
+import BaseIcon from '@/components/template/Elements/BaseIcon.vue'
+import { useI18n } from 'vue-i18n'
 
 defineProps({
   menu: {
     type: Array,
-    required: true
-  }
-});
+    required: true,
+  },
+})
 
-const emit = defineEmits(['menu-click', 'aside-lg-close-click']);
+const emit = defineEmits(['menu-click', 'aside-lg-close-click'])
 
-const i18n = useI18n();
+const i18n = useI18n()
 
 const logoutItem = computed(() => ({
   label: i18n.t('nav.logout'),
   icon: mdiLogout,
   color: 'info',
-  isLogout: true
-}));
+  isLogout: true,
+}))
 
 const menuClick = (event, item) => {
-  emit('menu-click', event, item);
-};
+  emit('menu-click', event, item)
+}
 
 const asideLgCloseClick = (event) => {
-  emit('aside-lg-close-click', event);
-};
+  emit('aside-lg-close-click', event)
+}
 </script>
 
 <template>

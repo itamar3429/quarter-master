@@ -1,28 +1,28 @@
-<script setup>
-import { useRouter } from 'vue-router';
-import { useDarkModeStore } from '@/stores/darkMode.js';
-import { gradientBgPurplePink } from '@/colors.js';
-import SectionMain from '@/components/template/Sections/SectionMain.vue';
-import CardBox from '@/components/template/Cards/CardBox.vue';
-import LayoutGuest from '@/layouts/LayoutGuest.vue';
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+import { useDarkModeStore } from '@/stores/darkMode'
+import { gradientBgPurplePink } from '@/colors'
+import SectionMain from '@/components/template/Sections/SectionMain.vue'
+import CardBox from '@/components/template/Cards/CardBox.vue'
+import LayoutGuest from '@/layouts/LayoutGuest.vue'
 
-const styles = ['white', 'basic'];
+const styles = ['white', 'basic']
 
-const darkModeStore = useDarkModeStore();
+const darkModeStore = useDarkModeStore()
 
-darkModeStore.set(false);
+darkModeStore.set(false)
 
-const router = useRouter();
+const router = useRouter()
 
 const handleStyleChange = (slug) => {
   document.documentElement.classList.forEach((token) => {
     if (token.indexOf('style') === 0) {
-      document.documentElement.classList.replace(token, `style-${slug}`);
+      document.documentElement.classList.replace(token, `style-${slug}`)
     }
-  });
+  })
 
-  router.push('/dashboard');
-};
+  router.push('/dashboard')
+}
 </script>
 
 <template>

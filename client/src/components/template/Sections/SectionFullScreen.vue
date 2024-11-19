@@ -1,14 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
-import { useDarkModeStore } from '@/stores/darkMode.js'
-import { gradientBgPurplePink, gradientBgDark, gradientBgPinkRed } from '@/colors.js'
+import { useDarkModeStore } from '@/stores/darkMode'
+import { gradientBgPurplePink, gradientBgDark, gradientBgPinkRed } from '@/colors'
 
 const props = defineProps({
   bg: {
     type: String,
     required: true,
-    validator: (value) => ['purplePink', 'pinkRed'].includes(value)
-  }
+    validator: (value) => ['purplePink', 'pinkRed'].includes(value as any),
+  },
 })
 
 const colorClass = computed(() => {

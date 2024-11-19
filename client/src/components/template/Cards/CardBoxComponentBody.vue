@@ -1,6 +1,6 @@
-<script setup>
+<script setup lang="ts">
 defineProps({
-  noPadding: Boolean
+  noPadding: Boolean,
 })
 </script>
 

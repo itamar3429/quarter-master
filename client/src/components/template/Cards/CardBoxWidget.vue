@@ -1,46 +1,46 @@
-<script setup>
-import { mdiCog } from '@mdi/js';
-import CardBox from '@/components/template/Cards/CardBox.vue';
-import NumberDynamic from '@/components/template/NumberDynamic.vue';
-import BaseIcon from '@/components/template/Elements/BaseIcon.vue';
-import BaseLevel from '@/components/template/Elements/BaseLevel.vue';
-import PillTagTrend from '@/components/template/PillTagTrend.vue';
-import BaseButton from '@/components/template/Elements/BaseButton.vue';
+<script setup lang="ts">
+import { mdiCog } from '@mdi/js'
+import CardBox from '@/components/template/Cards/CardBox.vue'
+import NumberDynamic from '@/components/template/NumberDynamic.vue'
+import BaseIcon from '@/components/template/Elements/BaseIcon.vue'
+import BaseLevel from '@/components/template/Elements/BaseLevel.vue'
+import PillTagTrend from '@/components/template/PillTagTrend.vue'
+import BaseButton from '@/components/template/Elements/BaseButton.vue'
 
 defineProps({
   number: {
     type: Number,
-    default: 0
+    default: 0,
   },
   icon: {
     type: String,
-    default: null
+    default: null,
   },
   prefix: {
     type: String,
-    default: null
+    default: null,
   },
   suffix: {
     type: String,
-    default: null
+    default: null,
   },
   label: {
     type: String,
-    default: null
+    default: null,
   },
   color: {
     type: String,
-    default: null
+    default: null,
   },
   trend: {
     type: String,
-    default: null
+    default: null,
   },
   trendType: {
     type: String,
-    default: null
-  }
-});
+    default: null,
+  },
+})
 </script>
 
 <template>

@@ -1,13 +1,13 @@
-<script setup>
+<script setup lang="ts">
 defineProps({
   zIndex: {
     type: String,
-    default: 'z-50'
+    default: 'z-50',
   },
   type: {
     type: String,
-    default: 'flex'
-  }
+    default: 'flex',
+  },
 })
 
 const emit = defineEmits(['overlay-click'])

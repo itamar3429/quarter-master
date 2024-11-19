@@ -1,67 +1,51 @@
-<script setup>
-import { computed } from 'vue';
-import { mdiTrendingDown, mdiTrendingUp, mdiTrendingNeutral } from '@mdi/js';
-import CardBox from '@/components/template/Cards/CardBox.vue';
-import BaseLevel from '@/components/template/Elements/BaseLevel.vue';
-import PillTag from '@/components/template/PillTag.vue';
-import UserAvatar from '@/components/template/UserAvatar.vue';
+<script setup lang="ts">
+import { computed } from 'vue'
+import { mdiTrendingDown, mdiTrendingUp, mdiTrendingNeutral } from '@mdi/js'
+import CardBox from '@/components/template/Cards/CardBox.vue'
+// @ts-ignore
+import BaseLevel from '@/components/template/Elements/BaseLevel.vue'
+import PillTag from '@/components/template/PillTag.vue'
+import UserAvatar from '@/components/template/UserAvatar.vue'
+import type { colorsOutline } from '../../../colors'
 
-const props = defineProps({
-  name: {
-    type: String,
-    required: true
-  },
-  login: {
-    type: String,
-    required: true
-  },
-  date: {
-    type: String,
-    required: true
-  },
-  progress: {
-    type: Number,
-    default: 0
-  },
-  text: {
-    type: String,
-    default: null
-  },
-  type: {
-    type: String,
-    default: null
-  }
-});
+const props = defineProps<{
+  name: string
+  login: string
+  date: string
+  progress?: number
+  text?: string
+  type?: 'success' | 'warning' | 'danger' | 'info'
+}>()
 
 const pillType = computed(() => {
   if (props.type) {
-    return props.type;
+    return props.type
   }
 
   if (props.progress) {
     if (props.progress >= 60) {
-      return 'success';
+      return 'success'
     }
     if (props.progress >= 40) {
-      return 'warning';
+      return 'warning'
     }
 
-    return 'danger';
+    return 'danger'
   }
 
-  return 'info';
-});
+  return 'info'
+})
 
 const pillIcon = computed(() => {
   return {
     success: mdiTrendingUp,
     warning: mdiTrendingNeutral,
     danger: mdiTrendingDown,
-    info: null
-  }[pillType.value];
-});
+    info: undefined,
+  }[pillType.value]
+})
 
-const pillText = computed(() => props.text ?? `${props.progress}%`);
+const pillText = computed(() => props.text ?? `${props.progress}%`)
 </script>
 
 <template>

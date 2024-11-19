@@ -15,5 +15,10 @@
     "soldiers": "Soldiers",
     "org": "Battalion Structure",
     "logout": "Logout"
+  },
+  "org": {
+    "battalion": "Battalion",
+    "platoon": "Platoon",
+    "platoons": "Platoons"
   }
 }

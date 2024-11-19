@@ -1,39 +1,39 @@
-<script setup>
-import { reactive } from 'vue';
-import { useMainStore } from '@/stores/main';
-import { mdiAccount, mdiMail, mdiAsterisk, mdiFormTextboxPassword, mdiGithub } from '@mdi/js';
-import SectionMain from '@/components/template/Sections/SectionMain.vue';
-import CardBox from '@/components/template/Cards/CardBox.vue';
-import BaseDivider from '@/components/template/Elements/BaseDivider.vue';
-import FormField from '@/components/template/form/FormField.vue';
-import FormControl from '@/components/template/form/FormControl.vue';
-import FormFilePicker from '@/components/template/form/FormFilePicker.vue';
-import BaseButton from '@/components/template/Elements/BaseButton.vue';
-import BaseButtons from '@/components/template/Elements/BaseButtons.vue';
-import UserCard from '@/components/template/UserCard.vue';
-import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue';
-import SectionTitleLineWithButton from '@/components/template/Sections/SectionTitleLineWithButton.vue';
+<script setup lang="ts">
+import { reactive } from 'vue'
+import { useMainStore } from '@/stores/main'
+import { mdiAccount, mdiMail, mdiAsterisk, mdiFormTextboxPassword, mdiGithub } from '@mdi/js'
+import SectionMain from '@/components/template/Sections/SectionMain.vue'
+import CardBox from '@/components/template/Cards/CardBox.vue'
+import BaseDivider from '@/components/template/Elements/BaseDivider.vue'
+import FormField from '@/components/template/form/FormField.vue'
+import FormControl from '@/components/template/form/FormControl.vue'
+import FormFilePicker from '@/components/template/form/FormFilePicker.vue'
+import BaseButton from '@/components/template/Elements/BaseButton.vue'
+import BaseButtons from '@/components/template/Elements/BaseButtons.vue'
+import UserCard from '@/components/template/UserCard.vue'
+import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue'
+import SectionTitleLineWithButton from '@/components/template/Sections/SectionTitleLineWithButton.vue'
 
-const mainStore = useMainStore();
+const mainStore = useMainStore()
 
 const profileForm = reactive({
   name: mainStore.userName,
-  email: mainStore.userEmail
-});
+  email: mainStore.userEmail,
+})
 
 const passwordForm = reactive({
   password_current: '',
   password: '',
-  password_confirmation: ''
-});
+  password_confirmation: '',
+})
 
 const submitProfile = () => {
-  mainStore.setUser(profileForm);
-};
+  mainStore.setUser(profileForm)
+}
 
 const submitPass = () => {
   //
-};
+}
 </script>
 
 <template>

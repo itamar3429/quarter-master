@@ -1,25 +1,25 @@
-<script setup>
-import { reactive, ref } from 'vue';
-import { mdiBallotOutline, mdiAccount, mdiMail, mdiGithub } from '@mdi/js';
-import SectionMain from '@/components/template/Sections/SectionMain.vue';
-import CardBox from '@/components/template/Cards/CardBox.vue';
-import FormCheckRadioGroup from '@/components/template/form/FormCheckRadioGroup.vue';
-import FormFilePicker from '@/components/template/form/FormFilePicker.vue';
-import FormField from '@/components/template/form/FormField.vue';
-import FormControl from '@/components/template/form/FormControl.vue';
-import BaseDivider from '@/components/template/Elements/BaseDivider.vue';
-import BaseButton from '@/components/template/Elements/BaseButton.vue';
-import BaseButtons from '@/components/template/Elements/BaseButtons.vue';
-import SectionTitle from '@/components/template/Sections/SectionTitle.vue';
-import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue';
-import SectionTitleLineWithButton from '@/components/template/Sections/SectionTitleLineWithButton.vue';
-import NotificationBarInCard from '@/components/template/NotificationBarInCard.vue';
+<script setup lang="ts">
+import { reactive, ref } from 'vue'
+import { mdiBallotOutline, mdiAccount, mdiMail, mdiGithub } from '@mdi/js'
+import SectionMain from '@/components/template/Sections/SectionMain.vue'
+import CardBox from '@/components/template/Cards/CardBox.vue'
+import FormCheckRadioGroup from '@/components/template/form/FormCheckRadioGroup.vue'
+import FormFilePicker from '@/components/template/form/FormFilePicker.vue'
+import FormField from '@/components/template/form/FormField.vue'
+import FormControl from '@/components/template/form/FormControl.vue'
+import BaseDivider from '@/components/template/Elements/BaseDivider.vue'
+import BaseButton from '@/components/template/Elements/BaseButton.vue'
+import BaseButtons from '@/components/template/Elements/BaseButtons.vue'
+import SectionTitle from '@/components/template/Sections/SectionTitle.vue'
+import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue'
+import SectionTitleLineWithButton from '@/components/template/Sections/SectionTitleLineWithButton.vue'
+import NotificationBarInCard from '@/components/template/NotificationBarInCard.vue'
 
 const selectOptions = [
   { id: 1, label: 'Business development' },
   { id: 2, label: 'Marketing' },
-  { id: 3, label: 'Sales' }
-];
+  { id: 3, label: 'Sales' },
+]
 
 const form = reactive({
   name: 'John Doe',
@@ -27,31 +27,31 @@ const form = reactive({
   phone: '',
   department: selectOptions[0],
   subject: '',
-  question: ''
-});
+  question: '',
+})
 
 const customElementsForm = reactive({
   checkbox: ['lorem'],
   radio: 'one',
   switch: ['one'],
-  file: null
-});
+  file: null,
+})
 
 const submit = () => {
   //
-};
+}
 
-const formStatusWithHeader = ref(true);
+const formStatusWithHeader = ref(true)
 
-const formStatusCurrent = ref(0);
+const formStatusCurrent = ref(0)
 
-const formStatusOptions = ['info', 'success', 'danger', 'warning'];
+const formStatusOptions = ['info', 'success', 'danger', 'warning']
 
 const formStatusSubmit = () => {
   formStatusCurrent.value = formStatusOptions[formStatusCurrent.value + 1]
     ? formStatusCurrent.value + 1
-    : 0;
-};
+    : 0
+}
 </script>
 
 <template>

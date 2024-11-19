@@ -1,26 +1,26 @@
-<script setup>
-import { colorsText, colorsBgLight } from '@/colors.js';
-import BaseIcon from '@/components/template/Elements/BaseIcon.vue';
+<script setup lang="ts">
+import { colorsText, colorsBgLight } from '@/colors'
+import BaseIcon from '@/components/template/Elements/BaseIcon.vue'
 
 defineProps({
   icon: {
     type: String,
-    required: true
+    required: true,
   },
   color: {
     type: String,
-    default: null
+    default: null,
   },
   w: {
     type: String,
-    default: 'w-12'
+    default: 'w-12',
   },
   h: {
     type: String,
-    default: 'h-12'
+    default: 'h-12',
   },
-  bg: Boolean
-});
+  bg: Boolean,
+})
 </script>
 
 <template>

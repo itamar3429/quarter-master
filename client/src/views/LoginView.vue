@@ -1,43 +1,43 @@
-<script setup>
-import { reactive } from 'vue';
-import { useRouter } from 'vue-router';
-import { mdiAccount, mdiAsterisk, mdiClose } from '@mdi/js';
-import SectionFullScreen from '@/components/template/Sections/SectionFullScreen.vue';
-import CardBox from '@/components/template/Cards/CardBox.vue';
-import FormField from '@/components/template/form/FormField.vue';
-import FormControl from '@/components/template/form/FormControl.vue';
-import BaseButton from '@/components/template/Elements/BaseButton.vue';
-import LayoutGuest from '@/layouts/LayoutGuest.vue';
-import { useAuthStore } from '../stores/authStore';
-import NotificationBar from '../components/template/NotificationBar.vue';
-import { useI18n } from 'vue-i18n';
+<script setup lang="ts">
+import { reactive } from 'vue'
+import { useRouter } from 'vue-router'
+import { mdiAccount, mdiAsterisk, mdiClose } from '@mdi/js'
+import SectionFullScreen from '@/components/template/Sections/SectionFullScreen.vue'
+import CardBox from '@/components/template/Cards/CardBox.vue'
+import FormField from '@/components/template/form/FormField.vue'
+import FormControl from '@/components/template/form/FormControl.vue'
+import BaseButton from '@/components/template/Elements/BaseButton.vue'
+import LayoutGuest from '@/layouts/LayoutGuest.vue'
+import { useAuthStore } from '../stores/authStore'
+import NotificationBar from '../components/template/NotificationBar.vue'
+import { useI18n } from 'vue-i18n'
 
 const form = reactive({
   username: '',
   pass: '',
   remember: true,
   loading: false,
-  error: ''
-});
+  error: '',
+})
 
-const authStore = useAuthStore();
+const authStore = useAuthStore()
 
-const router = useRouter();
-const i18n = useI18n();
+const router = useRouter()
+const i18n = useI18n()
 const submit = async () => {
-  form.loading = true;
+  form.loading = true
 
-  const loggedIn = await authStore.login(form.username, form.pass);
-  console.log(loggedIn);
+  const loggedIn = await authStore.login(form.username, form.pass)
+  console.log(loggedIn)
 
   if (loggedIn) {
-    router.push(authStore.redirectUrl || '/');
-    authStore.redirectUrl = '';
+    router.push(authStore.redirectUrl || '/')
+    authStore.redirectUrl = ''
   } else {
-    form.error = i18n.t('login.error');
+    form.error = i18n.t('login.error')
   }
-  form.loading = false;
-};
+  form.loading = false
+}
 </script>
 
 <template>

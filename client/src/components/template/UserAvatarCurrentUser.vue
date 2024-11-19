@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useMainStore } from '@/stores/main'
 import UserAvatar from '@/components/template/UserAvatar.vue'
 

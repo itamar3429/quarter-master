@@ -1,6 +1,6 @@
-<script setup>
-import { ref, computed } from 'vue';
-import { useDarkModeStore } from '@/stores/darkMode.js';
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import { useDarkModeStore } from '@/stores/darkMode'
 import {
   mdiContrastCircle,
   mdiInformation,
@@ -10,57 +10,55 @@ import {
   mdiOpenInNew,
   mdiClose,
   mdiReload,
-  mdiTrendingUp
-} from '@mdi/js';
-import SectionMain from '@/components/template/Sections/SectionMain.vue';
-import CardBox from '@/components/template/Cards/CardBox.vue';
-import BaseButtons from '@/components/template/Elements/BaseButtons.vue';
-import BaseButton from '@/components/template/Elements/BaseButton.vue';
-import NotificationBar from '@/components/template/NotificationBar.vue';
-import BaseDivider from '@/components/template/Elements/BaseDivider.vue';
-import CardBoxModal from '@/components/template/Cards/CardBoxModal.vue';
-import SectionTitle from '@/components/template/Sections/SectionTitle.vue';
-import FormField from '@/components/template/form/FormField.vue';
-import FormCheckRadioGroup from '@/components/template/form/FormCheckRadioGroup.vue';
-import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue';
-import SectionTitleLineWithButton from '@/components/template/Sections/SectionTitleLineWithButton.vue';
-import CardBoxComponentEmpty from '@/components/template/Cards/CardBoxComponentEmpty.vue';
-import CardBoxComponentTitle from '@/components/template/Cards/CardBoxComponentTitle.vue';
-import PillTag from '@/components/template/PillTag.vue';
+  mdiTrendingUp,
+} from '@mdi/js'
+import SectionMain from '@/components/template/Sections/SectionMain.vue'
+import CardBox from '@/components/template/Cards/CardBox.vue'
+import BaseButtons from '@/components/template/Elements/BaseButtons.vue'
+import BaseButton from '@/components/template/Elements/BaseButton.vue'
+import NotificationBar from '@/components/template/NotificationBar.vue'
+import BaseDivider from '@/components/template/Elements/BaseDivider.vue'
+import CardBoxModal from '@/components/template/Cards/CardBoxModal.vue'
+import SectionTitle from '@/components/template/Sections/SectionTitle.vue'
+import FormField from '@/components/template/form/FormField.vue'
+import FormCheckRadioGroup from '@/components/template/form/FormCheckRadioGroup.vue'
+import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue'
+import SectionTitleLineWithButton from '@/components/template/Sections/SectionTitleLineWithButton.vue'
+import CardBoxComponentEmpty from '@/components/template/Cards/CardBoxComponentEmpty.vue'
+import CardBoxComponentTitle from '@/components/template/Cards/CardBoxComponentTitle.vue'
+import PillTag from '@/components/template/PillTag.vue'
 
-const modalOneActive = ref(false);
+const modalOneActive = ref(false)
 
-const modalTwoActive = ref(false);
+const modalTwoActive = ref(false)
 
-const modalThreeActive = ref(false);
+const modalThreeActive = ref(false)
 
-const notificationSettingsModel = ref([]);
+const notificationSettingsModel = ref([])
 
-const notificationsOutline = computed(
-  () => notificationSettingsModel.value.indexOf('outline') > -1
-);
+const notificationsOutline = computed(() => notificationSettingsModel.value.indexOf('outline') > -1)
 
-const buttonSettingsModel = ref([]);
+const buttonSettingsModel = ref([])
 
-const buttonsOutline = computed(() => buttonSettingsModel.value.indexOf('outline') > -1);
+const buttonsOutline = computed(() => buttonSettingsModel.value.indexOf('outline') > -1)
 
-const buttonsSmall = computed(() => buttonSettingsModel.value.indexOf('small') > -1);
+const buttonsSmall = computed(() => buttonSettingsModel.value.indexOf('small') > -1)
 
-const buttonsDisabled = computed(() => buttonSettingsModel.value.indexOf('disabled') > -1);
+const buttonsDisabled = computed(() => buttonSettingsModel.value.indexOf('disabled') > -1)
 
-const buttonsRounded = computed(() => buttonSettingsModel.value.indexOf('rounded') > -1);
+const buttonsRounded = computed(() => buttonSettingsModel.value.indexOf('rounded') > -1)
 
-const pillsSettingsModel = ref(['icon']);
+const pillsSettingsModel = ref(['icon'])
 
-const pillsOutline = computed(() => pillsSettingsModel.value.indexOf('outline') > -1);
+const pillsOutline = computed(() => pillsSettingsModel.value.indexOf('outline') > -1)
 
-const pillsSmall = computed(() => pillsSettingsModel.value.indexOf('small') > -1);
+const pillsSmall = computed(() => pillsSettingsModel.value.indexOf('small') > -1)
 
 const pillsIcon = computed(() =>
-  pillsSettingsModel.value.indexOf('icon') > -1 ? mdiTrendingUp : null
-);
+  pillsSettingsModel.value.indexOf('icon') > -1 ? mdiTrendingUp : null,
+)
 
-const darkModeStore = useDarkModeStore();
+const darkModeStore = useDarkModeStore()
 </script>
 
 <template>
@@ -238,7 +236,7 @@ const darkModeStore = useDarkModeStore();
               outline: 'Outline',
               small: 'Small',
               rounded: 'Rounded',
-              disabled: 'Disabled'
+              disabled: 'Disabled',
             }"
           />
         </FormField>

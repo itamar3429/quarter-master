@@ -1,5 +1,5 @@
-<script setup>
-import { containerMaxW } from '@/config.js'
+<script setup lang="ts">
+import { containerMaxW } from '@/config'
 </script>
 
 <template>

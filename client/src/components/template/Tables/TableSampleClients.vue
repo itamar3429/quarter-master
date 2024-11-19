@@ -1,69 +1,69 @@
-<script setup>
-import { computed, ref } from 'vue';
-import { useMainStore } from '@/stores/main';
-import { mdiEye, mdiTrashCan } from '@mdi/js';
-import CardBoxModal from '@/components/template/Cards/CardBoxModal.vue';
-import TableCheckboxCell from '@/components/template/Tables/TableCheckboxCell.vue';
-import BaseLevel from '@/components/template/Elements/BaseLevel.vue';
-import BaseButtons from '@/components/template/Elements/BaseButtons.vue';
-import BaseButton from '@/components/template/Elements/BaseButton.vue';
-import UserAvatar from '@/components/template/UserAvatar.vue';
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+import { useMainStore } from '@/stores/main'
+import { mdiEye, mdiTrashCan } from '@mdi/js'
+import CardBoxModal from '@/components/template/Cards/CardBoxModal.vue'
+import TableCheckboxCell from '@/components/template/Tables/TableCheckboxCell.vue'
+import BaseLevel from '@/components/template/Elements/BaseLevel.vue'
+import BaseButtons from '@/components/template/Elements/BaseButtons.vue'
+import BaseButton from '@/components/template/Elements/BaseButton.vue'
+import UserAvatar from '@/components/template/UserAvatar.vue'
 
 defineProps({
-  checkable: Boolean
-});
+  checkable: Boolean,
+})
 
-const mainStore = useMainStore();
+const mainStore = useMainStore()
 
-const items = computed(() => mainStore.clients);
+const items = computed(() => mainStore.clients)
 
-const isModalActive = ref(false);
+const isModalActive = ref(false)
 
-const isModalDangerActive = ref(false);
+const isModalDangerActive = ref(false)
 
-const perPage = ref(5);
+const perPage = ref(5)
 
-const currentPage = ref(0);
+const currentPage = ref(0)
 
-const checkedRows = ref([]);
+const checkedRows = ref([])
 
 const itemsPaginated = computed(() =>
-  items.value.slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1))
-);
+  items.value.slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1)),
+)
 
-const numPages = computed(() => Math.ceil(items.value.length / perPage.value));
+const numPages = computed(() => Math.ceil(items.value.length / perPage.value))
 
-const currentPageHuman = computed(() => currentPage.value + 1);
+const currentPageHuman = computed(() => currentPage.value + 1)
 
 const pagesList = computed(() => {
-  const pagesList = [];
+  const pagesList = []
 
   for (let i = 0; i < numPages.value; i++) {
-    pagesList.push(i);
+    pagesList.push(i)
   }
 
-  return pagesList;
-});
+  return pagesList
+})
 
 const remove = (arr, cb) => {
-  const newArr = [];
+  const newArr = []
 
   arr.forEach((item) => {
     if (!cb(item)) {
-      newArr.push(item);
+      newArr.push(item)
     }
-  });
+  })
 
-  return newArr;
-};
+  return newArr
+}
 
 const checked = (isChecked, client) => {
   if (isChecked) {
-    checkedRows.value.push(client);
+    checkedRows.value.push(client)
   } else {
-    checkedRows.value = remove(checkedRows.value, (row) => row.id === client.id);
+    checkedRows.value = remove(checkedRows.value, (row) => row.id === client.id)
   }
-};
+}
 </script>
 
 <template>

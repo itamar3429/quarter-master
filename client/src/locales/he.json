@@ -15,5 +15,10 @@
     "soldiers": "חיילים",
     "org": "מבנה גדודי",
     "logout": "התנתק"
+  },
+  "org": {
+    "battalion": "גדוד",
+    "platoon": "פלוגה",
+    "platoons": "פלוגות"
   }
 }

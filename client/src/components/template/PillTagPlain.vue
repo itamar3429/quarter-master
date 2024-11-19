@@ -1,17 +1,17 @@
-<script setup>
-import BaseIcon from '@/components/template/Elements/BaseIcon.vue';
+<script setup lang="ts">
+import BaseIcon from '@/components/template/Elements/BaseIcon.vue'
 
 defineProps({
   label: {
     type: String,
-    required: true
+    required: true,
   },
   icon: {
     type: String,
-    default: null
+    default: null,
   },
-  small: Boolean
-});
+  small: Boolean,
+})
 </script>
 
 <template>
@@ -25,7 +25,7 @@ defineProps({
       h="h-4"
       w="w-4"
       :class="small ? 'mr-1' : 'mr-2'"
-      :size="small ? 14 : null"
+      :size="small ? 14 : undefined"
     />
     <span>{{ label }}</span>
   </div>

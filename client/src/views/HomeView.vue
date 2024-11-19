@@ -1,6 +1,6 @@
-<script setup>
-import { computed, ref, onMounted } from 'vue';
-import { useMainStore } from '@/stores/main';
+<script setup lang="ts">
+import { computed, ref, onMounted } from 'vue'
+import { useMainStore } from '@/stores/main'
 import {
   mdiAccountMultiple,
   mdiCartOutline,
@@ -8,37 +8,36 @@ import {
   mdiMonitorCellphone,
   mdiReload,
   mdiGithub,
-  mdiChartPie
-} from '@mdi/js';
-import * as chartConfig from '@/components/template/Charts/chart.config.js';
-import LineChart from '@/components/template/Charts/LineChart.vue';
-import SectionMain from '@/components/template/Sections/SectionMain.vue';
-import CardBoxWidget from '@/components/template/Cards/CardBoxWidget.vue';
-import CardBox from '@/components/template/Cards/CardBox.vue';
-import TableSampleClients from '@/components/template/Tables/TableSampleClients.vue';
-import NotificationBar from '@/components/template/NotificationBar.vue';
-import BaseButton from '@/components/template/Elements/BaseButton.vue';
-import CardBoxTransaction from '@/components/template/Cards/CardBoxTransaction.vue';
-import CardBoxClient from '@/components/template/Cards/CardBoxClient.vue';
-import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue';
-import SectionTitleLineWithButton from '@/components/template/Sections/SectionTitleLineWithButton.vue';
-import SectionBannerStarOnGitHub from '@/components/template/Sections/SectionBannerStarOnGitHub.vue';
+  mdiChartPie,
+} from '@mdi/js'
+import * as chartConfig from '@/components/template/Charts/chart.config'
+import LineChart from '@/components/template/Charts/LineChart.vue'
+import SectionMain from '@/components/template/Sections/SectionMain.vue'
+import CardBoxWidget from '@/components/template/Cards/CardBoxWidget.vue'
+import CardBox from '@/components/template/Cards/CardBox.vue'
+import TableSampleClients from '@/components/template/Tables/TableSampleClients.vue'
+import NotificationBar from '@/components/template/NotificationBar.vue'
+import BaseButton from '@/components/template/Elements/BaseButton.vue'
+import CardBoxTransaction from '@/components/template/Cards/CardBoxTransaction.vue'
+import CardBoxClient from '@/components/template/Cards/CardBoxClient.vue'
+import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue'
+import SectionTitleLineWithButton from '@/components/template/Sections/SectionTitleLineWithButton.vue'
 
-const chartData = ref(null);
+const chartData = ref(null)
 
 const fillChartData = () => {
-  chartData.value = chartConfig.sampleChartData();
-};
+  chartData.value = chartConfig.sampleChartData()
+}
 
 onMounted(() => {
-  fillChartData();
-});
+  fillChartData()
+})
 
-const mainStore = useMainStore();
+const mainStore = useMainStore()
 
-const clientBarItems = computed(() => mainStore.clients.slice(0, 4));
+const clientBarItems = computed(() => mainStore.clients.slice(0, 4))
 
-const transactionBarItems = computed(() => mainStore.history);
+const transactionBarItems = computed(() => mainStore.history)
 </script>
 
 <template>
@@ -109,8 +108,6 @@ const transactionBarItems = computed(() => mainStore.history);
           />
         </div>
       </div>
-
-      <SectionBannerStarOnGitHub class="mt-6 mb-6" />
 
       <SectionTitleLineWithButton :icon="mdiChartPie" title="Trends overview">
         <BaseButton :icon="mdiReload" color="whiteDark" @click="fillChartData" />

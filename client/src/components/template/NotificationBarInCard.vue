@@ -1,11 +1,11 @@
-<script setup>
-import { colorsBgLight } from '@/colors.js'
+<script setup lang="ts">
+import { colorsBgLight } from '@/colors'
 
 defineProps({
   color: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 })
 </script>
 

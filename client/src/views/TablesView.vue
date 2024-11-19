@@ -1,13 +1,13 @@
-<script setup>
-import { mdiMonitorCellphone, mdiTableBorder, mdiTableOff, mdiGithub } from '@mdi/js';
-import SectionMain from '@/components/template/Sections/SectionMain.vue';
-import NotificationBar from '@/components/template/NotificationBar.vue';
-import TableSampleClients from '@/components/template/TableSampleClients.vue';
-import CardBox from '@/components/template/Cards/CardBox.vue';
-import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue';
-import SectionTitleLineWithButton from '@/components/template/Sections/SectionTitleLineWithButton.vue';
-import BaseButton from '@/components/template/Elements/BaseButton.vue';
-import CardBoxComponentEmpty from '@/components/template/Cards/CardBoxComponentEmpty.vue';
+<script setup lang="ts">
+import { mdiMonitorCellphone, mdiTableBorder, mdiTableOff, mdiGithub } from '@mdi/js'
+import SectionMain from '@/components/template/Sections/SectionMain.vue'
+import NotificationBar from '@/components/template/NotificationBar.vue'
+import TableSampleClients from '@/components/template/Tables/TableSampleClients.vue'
+import CardBox from '@/components/template/Cards/CardBox.vue'
+import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue'
+import SectionTitleLineWithButton from '@/components/template/Sections/SectionTitleLineWithButton.vue'
+import BaseButton from '@/components/template/Elements/BaseButton.vue'
+import CardBoxComponentEmpty from '@/components/template/Cards/CardBoxComponentEmpty.vue'
 </script>
 
 <template>

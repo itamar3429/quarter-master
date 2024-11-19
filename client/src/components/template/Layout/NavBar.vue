@@ -1,25 +1,25 @@
-<script setup>
-import { ref } from 'vue';
-import { mdiClose, mdiDotsVertical } from '@mdi/js';
-import { containerMaxW } from '@/config.js';
-import BaseIcon from '@/components/template/Elements/BaseIcon.vue';
-import NavBarMenuList from '@/components/template/Layout/NavBarMenuList.vue';
-import NavBarItemPlain from '@/components/template/Layout/NavBarItemPlain.vue';
+<script setup lang="ts">
+import { ref } from 'vue'
+import { mdiClose, mdiDotsVertical } from '@mdi/js'
+import { containerMaxW } from '@/config'
+import BaseIcon from '@/components/template/Elements/BaseIcon.vue'
+import NavBarMenuList from '@/components/template/Layout/NavBarMenuList.vue'
+import NavBarItemPlain from '@/components/template/Layout/NavBarItemPlain.vue'
 
 defineProps({
   menu: {
     type: Array,
-    required: true
-  }
-});
+    required: true,
+  },
+})
 
-const emit = defineEmits(['menu-click']);
+const emit = defineEmits(['menu-click'])
 
 const menuClick = (event, item) => {
-  emit('menu-click', event, item);
-};
+  emit('menu-click', event, item)
+}
 
-const isMenuNavBarActive = ref(false);
+const isMenuNavBarActive = ref(false)
 </script>
 
 <template>
