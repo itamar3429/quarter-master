@@ -1,5 +1,6 @@
 import { mdiHome, mdiAccountMultiple, mdiHomeCity } from '@mdi/js';
 import { useI18n } from 'vue-i18n';
+import { isAllowedFor } from './utils/auth';
 
 export default function getMenuItems() {
   const i18n = useI18n();
@@ -8,18 +9,19 @@ export default function getMenuItems() {
     {
       to: '/',
       icon: mdiHome,
-      label: i18n.t('nav.home')
+      label: i18n.t('nav.home'),
     },
     {
       to: '/org',
       icon: mdiHomeCity,
-      label: i18n.t('nav.org')
+      label: i18n.t('nav.org'),
+      hide: !isAllowedFor('battalion'),
     },
     {
       to: '/user-management',
       icon: mdiAccountMultiple,
-      label: i18n.t('nav.users')
-    }
+      label: i18n.t('nav.users'),
+    },
     // {
     //   to: '/tables',
     //   label: 'Tables',

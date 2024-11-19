@@ -18,7 +18,23 @@
   },
   "org": {
     "battalion": "Battalion",
+    "battalion_name": "Battalion Name",
+    "platoon_name": "Platoon Name",
     "platoon": "Platoon",
-    "platoons": "Platoons"
+    "platoons": "Platoons",
+    "add_battalion": "Add Battalion",
+    "add_platoon": "Add Platoon"
+  },
+  "global": {
+    "empty": "Nothing Here...",
+    "save": "Save",
+    "name_invalid": "Name is invalid or taken",
+    "500": "Something went wrong, Try again later",
+    "close": "close",
+    "cancel": "Cancel"
+  },
+  "pagination": {
+    "page": "Page",
+    "of": "Of"
   }
 }

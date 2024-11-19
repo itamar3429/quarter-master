@@ -18,7 +18,23 @@
   },
   "org": {
     "battalion": "גדוד",
+    "battalion_name": "שם גדוד",
+    "platoon_name": "שם פלוגה",
     "platoon": "פלוגה",
-    "platoons": "פלוגות"
+    "platoons": "פלוגות",
+    "add_battalion": "צור גדוד",
+    "add_platoon": "צור פלוגה"
+  },
+  "global": {
+    "empty": "לא נמצא כלום",
+    "save": "שמור",
+    "name_invalid": "השם לא תקין או נמצא בשימוש",
+    "500": "משהו השתבש, אנא נסו שנית מאוחר יותר",
+    "close": "סגור",
+    "cancel": "ביטול"
+  },
+  "pagination": {
+    "page": "עמוד",
+    "of": "מתוך"
   }
 }

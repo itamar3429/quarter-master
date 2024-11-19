@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref, computed, useSlots } from 'vue'
-import { mdiClose } from '@mdi/js'
-import { colorsBgLight, colorsOutline } from '@/colors'
-import BaseLevel from '@/components/template/Elements/BaseLevel.vue'
-import BaseIcon from '@/components/template/Elements/BaseIcon.vue'
-import BaseButton from '@/components/template/Elements/BaseButton.vue'
+import { ref, computed, useSlots } from 'vue';
+import { mdiClose } from '@mdi/js';
+import { colorsBgLight, colorsOutline } from '@/colors';
+import BaseLevel from '@/components/template/Elements/BaseLevel.vue';
+import BaseIcon from '@/components/template/Elements/BaseIcon.vue';
+import BaseButton from '@/components/template/Elements/BaseButton.vue';
 
 const props = defineProps({
   icon: {
@@ -12,32 +12,36 @@ const props = defineProps({
     default: null,
   },
   outline: Boolean,
+  small: Boolean,
   color: {
     type: String,
     required: true,
   },
-})
+});
 
 const componentClass = computed(() =>
-  props.outline ? colorsOutline[props.color] : colorsBgLight[props.color],
-)
+  props.outline ? colorsOutline[props.color] : [colorsBgLight[props.color]],
+);
 
-const isDismissed = ref(false)
+const isDismissed = ref(false);
 
 const dismiss = () => {
-  isDismissed.value = true
-}
+  isDismissed.value = true;
+};
 
-const slots = useSlots()
+const slots = useSlots();
 
-const hasRightSlot = computed(() => slots.right)
+const hasRightSlot = computed(() => slots.right);
 </script>
 
 <template>
   <div
     v-if="!isDismissed"
-    :class="componentClass"
-    class="px-3 py-6 md:py-3 mb-6 last:mb-0 border rounded-lg transition-colors duration-150"
+    :class="[
+      ...componentClass,
+      small ? 'pl-2 px-1 py-1' : 'px-3 py-6 md:py-3',
+      'mb-6 last:mb-0 border rounded-lg transition-colors duration-150',
+    ]"
   >
     <BaseLevel>
       <div class="flex flex-col md:flex-row items-center">

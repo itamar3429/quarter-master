@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { mdiClose } from '@mdi/js'
-import BaseButton from '@/components/template/Elements/BaseButton.vue'
-import BaseButtons from '@/components/template/Elements/BaseButtons.vue'
-import CardBox from '@/components/template/Cards/CardBox.vue'
-import OverlayLayer from '@/components/template/OverlayLayer.vue'
-import CardBoxComponentTitle from '@/components/template/Cards/CardBoxComponentTitle.vue'
+import { computed, type PropType } from 'vue';
+import { mdiClose } from '@mdi/js';
+import BaseButton from '@/components/template/Elements/BaseButton.vue';
+import BaseButtons from '@/components/template/Elements/BaseButtons.vue';
+import CardBox from '@/components/template/Cards/CardBox.vue';
+import OverlayLayer from '@/components/template/OverlayLayer.vue';
+import CardBoxComponentTitle from '@/components/template/Cards/CardBoxComponentTitle.vue';
 
 const props = defineProps({
   title: {
@@ -25,29 +25,32 @@ const props = defineProps({
     type: [String, Number, Boolean],
     default: null,
   },
-})
+  btnProps: {
+    type: Object as PropType<InstanceType<typeof BaseButton>['$props']>,
+  },
+});
 
-const emit = defineEmits(['update:modelValue', 'cancel', 'confirm'])
+const emit = defineEmits(['update:modelValue', 'cancel', 'confirm']);
 
 const value = computed({
   get: () => props.modelValue,
   set: (value) => emit('update:modelValue', value),
-})
+});
 
 const confirmCancel = (mode) => {
-  value.value = false
-  emit(mode)
-}
+  if (mode == 'cancel') value.value = false;
+  emit(mode);
+};
 
-const confirm = () => confirmCancel('confirm')
+const confirm = () => confirmCancel('confirm');
 
-const cancel = () => confirmCancel('cancel')
+const cancel = () => confirmCancel('cancel');
 
 window.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && value.value) {
-    cancel()
+    cancel();
   }
-})
+});
 </script>
 
 <template>
@@ -74,8 +77,14 @@ window.addEventListener('keydown', (e) => {
 
       <template #footer>
         <BaseButtons>
-          <BaseButton :label="buttonLabel" :color="button" @click="confirm" />
-          <BaseButton v-if="hasCancel" label="Cancel" :color="button" outline @click="cancel" />
+          <BaseButton :label="buttonLabel" :color="button" @click="confirm" v-bind="btnProps" />
+          <BaseButton
+            v-if="hasCancel"
+            :label="$t('global.cancel')"
+            :color="button"
+            outline
+            @click="cancel"
+          />
         </BaseButtons>
       </template>
     </CardBox>

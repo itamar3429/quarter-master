@@ -47,16 +47,7 @@ class FetchService {
     opts: Omit<T, 'res'>,
     refreshToken: boolean,
   ): Promise<
-    | (
-        | {
-            status: number
-            message?: string
-            error?: string
-            res: AxiosResponse
-          }
-        | (T['res'] & (T['res'] extends string ? {} : { res: AxiosResponse }))
-      )
-    | undefined
+    (T['res'] & (T['res'] extends string ? {} : { res: Omit<AxiosResponse, 'data'> })) | undefined
   > {
     let res: AxiosResponse
     const token = this.authStore.token
@@ -71,19 +62,6 @@ class FetchService {
       conf.headers!['x-access-token'] = token
     }
 
-    // don't continue to fetch if expected to get an access token and its undefined
-    if (
-      typeof opts.headers === 'object' &&
-      'x-access-token' in (opts.headers as any) &&
-      !opts.headers['x-access-token']
-    ) {
-      return {
-        status: 0,
-        error: 'no access token',
-        message: 'no access token',
-        res: {} as any,
-      }
-    }
     try {
       switch (opts.method) {
         case 'post':
@@ -103,94 +81,18 @@ class FetchService {
         return this.processResponse(err.response, refreshToken)
       }
 
-      return {
-        status: 0,
-        error: 'Unknown error, please try again later',
-        res: err.response,
-      }
+      return
     }
   }
 
   private processResponse<T extends ApiType>(
     res: AxiosResponse,
     refreshToken: boolean,
-  ):
-    | ((
-        | T['res']
-        | {
-            status: number
-            message?: string
-            error?: string
-          }
-      ) & { res: AxiosResponse })
-    | T['res'] {
+  ): (T['res'] & { res: Omit<AxiosResponse, 'data'> }) | T['res'] {
     if (res.status == 403) {
       console.log('Invalid token')
       this.authStore.revokeToken()
-      this.authStore.redirect({ path: '/login' })
-      // return {
-      //   status: 403,
-      //   error: 'Invalid token',
-      //   res,
-      // }
     }
-    // if (res.status == 409) {
-    //   console.log('409 detected')
-    //   return res.data
-    // }
-    // if (res.status == 500) {
-    //   return {
-    //     status: 500,
-    //     error:
-    //       res.data?.error?.message ||
-    //       res.data?.error ||
-    //       'There was an internal server error.  The matter is being investigated.  Please try your request again.',
-    //     res,
-    //   }
-    // }
-    // if (res.status === 401) {
-    //   return {
-    //     status: 401,
-    //     message: res.data?.message,
-    //     error: res.data?.error,
-    //     res,
-    //   }
-    // }
-    // if (res.status >= 300 && res.status < 400) {
-    //   return {
-    //     status: res.status,
-    //     message: res.data?.message || 'Routing redirection message was received from the api',
-    //     error:
-    //       res.data?.error?.message ||
-    //       res.data?.error ||
-    //       'Routing redirection message was received from the api',
-    //     res,
-    //   }
-    // }
-    // if (res.status >= 400 && res.status < 500) {
-    //   return {
-    //     status: res.status,
-    //     message: res.data?.message || 'An error related to client occurred while fetching the data',
-    //     error:
-    //       res.data?.error?.message ||
-    //       res.data?.error ||
-    //       'An error related to client occurred while fetching the data',
-    //     res,
-    //   }
-    // }
-    // if (res.status >= 500) {
-    //   return {
-    //     status: res.status,
-    //     message:
-    //       res.data?.message ||
-    //       'Our servers are experiencing some errors at the moment, please try again later',
-    //     error:
-    //       res.data?.error?.message ||
-    //       res.data?.error ||
-    //       'Our servers are experiencing some errors at the moment, please try again later',
-    //     res,
-    //   }
-    // }
     if (typeof res.data === 'string') return res.data
     if (res.data?.token && refreshToken) this.authStore.registerToken(res.data.token)
     return Object.assign(res.data as T['res'], {

@@ -14,26 +14,29 @@
           @click="$emit('update:currPage', page)"
         />
       </BaseButtons>
-      <small>Page {{ currPage }} of {{ totalPages }}</small>
+      <small
+        >{{ $t('pagination.page') }} {{ currPage }} {{ $t('pagination.of') }}
+        {{ totalPages }}</small
+      >
     </BaseLevel>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import BaseLevel from '../Elements/BaseLevel.vue'
-import BaseButtons from '../Elements/BaseButtons.vue'
-import BaseButton from '../Elements/BaseButton.vue'
+import { computed } from 'vue';
+import BaseLevel from '../Elements/BaseLevel.vue';
+import BaseButtons from '../Elements/BaseButtons.vue';
+import BaseButton from '../Elements/BaseButton.vue';
 
 const props = defineProps<{
-  currPage: number
-  totalPages: number
-  perPage: number
-  pageStatusText: string
-  perPageArr?: number[]
-}>()
-const perPageArr = computed(() => props.perPageArr || [10, 20, 50, 100])
+  currPage: number;
+  totalPages: number;
+  perPage: number;
+  pageStatusText: string;
+  perPageArr?: number[];
+}>();
+const perPageArr = computed(() => props.perPageArr || [10, 20, 50, 100]);
 
-const emit = defineEmits(['pageUp', 'pageDown', 'update:perPage', 'update:currPage'])
-emit('update:perPage', perPageArr.value[0])
+const emit = defineEmits(['pageUp', 'pageDown', 'update:perPage', 'update:currPage']);
+emit('update:perPage', perPageArr.value[0]);
 </script>

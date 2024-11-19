@@ -5,10 +5,10 @@ export async function getBattalion(id?: number) {
       SELECT 
           battalion_id,
           MIN(battalion_name) battalion_name,
-          JSON_ARRAYAGG(JSON_OBJECT(
+          CAST(IF(MIN(platoon_id) IS NULL, '[]', JSON_ARRAYAGG(JSON_OBJECT(
               'platoon_id', platoon_id,
               'platoon_name', platoon_name
-          )) platoons
+          ))) AS JSON) platoons
       FROM battalion
       LEFT JOIN platoon USING(battalion_id)
       ${id ? `WHERE battalion_id = ${+id} ` : ""}
@@ -33,7 +33,7 @@ export async function getPlatoon(
   const SQL = `
     SELECT platoon_id, platoon_name, battalion_id FROM platoon
     WHERE battalion_id = ${+battalion_id}
-    platoon_id IN (SELECT platoon_id FROM users_view WHERE id = ${userID})
+    AND platoon_id IN (SELECT platoon_id FROM users_view WHERE id = ${userID})
     ${id ? `AND platoon_id = ${+id}` : ""}
   `;
   const data = query<{

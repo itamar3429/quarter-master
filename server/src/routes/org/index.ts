@@ -1,12 +1,19 @@
 import { Router } from "express";
 import { requireAuth } from "../../middleware/auth";
 import { respond, respond401, respond500 } from "../../utils/responses";
-import { insert } from "../../db/query";
+import { insert, query } from "../../db/query";
 import { getBattalion, getPlatoon } from "./service";
+import {
+  addBattalionSchema,
+  validateBattalionName,
+  validatePlatoonName,
+} from "./schema";
+import { validateSchema } from "../../middleware/schema";
+import { getTokenForUser } from "../auth/token";
 
 export const orgRouter = Router();
 
-orgRouter.get("/battalion", requireAuth("admin"), async (req, res) => {
+orgRouter.get("/battalion", requireAuth("battalion"), async (req, res) => {
   try {
     const data = await getBattalion();
     res.json({
@@ -38,39 +45,32 @@ orgRouter.get("/battalion/:id", requireAuth("admin"), async (req, res) => {
   }
 });
 
-orgRouter.post("/battalion", requireAuth("admin"), async (req, res) => {
-  try {
-    const payload = req.body;
-    if (
-      !payload.battalion_name ||
-      typeof payload.battalion_name != "string" ||
-      payload.battalion_name.length < 3 ||
-      payload.battalion_name.length > 50
-    ) {
-      respond(
-        res,
-        400,
-        "battalion_name is required, and must have 3-50 characters"
+orgRouter.post(
+  "/battalion",
+  requireAuth("admin"),
+  validateSchema(addBattalionSchema),
+  async (req, res) => {
+    try {
+      const payload = req.body;
+      const response = await insert(
+        "INSERT INTO battalion (battalion_name) VALUES (?)",
+        [payload.battalion_name]
       );
-      return;
+      const data = await getBattalion(response.insertId);
+      if (!data || !data.length) {
+        respond401(res, "Failed to find the requested battalion");
+        return;
+      }
+      res.json({
+        data: data[0],
+        token: await getTokenForUser(req.user.id),
+        success: true,
+      });
+    } catch (error) {
+      respond500(res);
     }
-    const response = await insert(
-      "INSERT INTO battalion (battalion_name) VALUES (?)",
-      [payload.battalion_name]
-    );
-    const data = await getBattalion(response.insertId);
-    if (!data || !data.length) {
-      respond401(res, "Failed to find the requested battalion");
-      return;
-    }
-    res.json({
-      data: data[0],
-      success: true,
-    });
-  } catch (error) {
-    respond500(res);
   }
-});
+);
 
 orgRouter.get(
   "/battalion/:id/platoon",
@@ -169,10 +169,56 @@ orgRouter.post(
       if (data && data.length) {
         res.json({
           data: data[0],
+          token: await getTokenForUser(req.user.id),
           success: true,
         });
+        return;
       }
       respond401(res, "Failed to find the requested platoon");
+    } catch (error) {
+      console.log(error);
+
+      respond500(res);
+    }
+  }
+);
+
+orgRouter.post(
+  "/battalion/validate",
+  requireAuth("admin"),
+  validateSchema(validateBattalionName),
+  async (req, res) => {
+    try {
+      const { name } = req.body;
+      const data = await query(
+        "SELECT TRUE a FROM battalion WHERE battalion_name = ?",
+        [name.trim()]
+      );
+      res.json({
+        success: true,
+        valid: data.length == 0,
+      });
+    } catch (error) {
+      respond500(res);
+    }
+  }
+);
+
+orgRouter.post(
+  "/platoon/validate",
+  requireAuth("battalion"),
+  validateSchema(validatePlatoonName),
+  async (req, res) => {
+    try {
+      const { battalion_id, platoon_name } = req.body;
+      const data = await query(
+        "SELECT TRUE a FROM platoon WHERE battalion_id = ? AND platoon_name = ?",
+        [battalion_id, platoon_name.trim()]
+      );
+      res.json({
+        success: true,
+        valid: data.length == 0,
+      });
     } catch (error) {
       respond500(res);
     }
