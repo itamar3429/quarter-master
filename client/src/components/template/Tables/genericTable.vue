@@ -1,5 +1,9 @@
-<script setup lang="ts">
-import { computed, ref, toRef } from 'vue';
+<script
+  setup
+  lang="ts"
+  generic="Key extends string | number, T extends Record<string, any> & { key: Key }"
+>
+import { computed, ref, toRef, type Ref } from 'vue';
 import TableCheckboxCell from '@/components/template/Tables/TableCheckboxCell.vue';
 import BaseButtons from '@/components/template/Elements/BaseButtons.vue';
 import BaseButton from '@/components/template/Elements/BaseButton.vue';
@@ -9,10 +13,9 @@ import CardBox from '../Cards/CardBox.vue';
 import CardBoxComponentBody from '../Cards/CardBoxComponentBody.vue';
 import CardBoxComponentEmpty from '../Cards/CardBoxComponentEmpty.vue';
 
-type RowItem = Record<string, any> & { key: string | number };
 const props = defineProps<{
   checkable?: boolean;
-  items: RowItem[];
+  items: T[];
   columns: {
     key: string;
     title: string;
@@ -20,7 +23,7 @@ const props = defineProps<{
       icon?: string;
       text?: string;
       color?: string;
-      onClick: (item: RowItem, event: PointerEvent) => any;
+      onClick: (item: T, event: PointerEvent) => any;
       rounded?: boolean;
     }[];
   }[];
@@ -31,9 +34,9 @@ const data = computed(() => props.items);
 
 const { forComponent, paginatedResults } = usePaginate(data);
 
-const checkedRows = ref<RowItem[]>([]);
+const checkedRows: Ref<T[]> = ref([]);
 
-const checked = (isChecked, item: RowItem) => {
+const checked = (isChecked, item: T) => {
   if (isChecked) {
     checkedRows.value.push(item);
   } else {

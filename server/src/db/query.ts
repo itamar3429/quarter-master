@@ -28,13 +28,15 @@ export async function update(
   let sql = `UPDATE ${tableName}
   SET `;
   const params: (null | string | number | boolean)[] = [];
-  const entries = Object.entries(values).filter((x) => x[1] != undefined);
+  const entries = Object.entries(values).filter((x) => x[1] !== undefined);
+  console.log(values, entries);
+
   if (!entries.length) throw new Error("Cannot have an empty update");
   entries.forEach(([key, value], i) => {
     params.push(value!);
     sql += `${i ? `, ` : ""} ${key} = ?`;
   });
-  sql += "WHERE " + whereClause;
+  sql += " WHERE " + whereClause;
   const res = await (connection || pool).query(sql, params);
   return res[0] as ResultSetHeader;
 }
@@ -47,7 +49,7 @@ export async function insertEasy(
   let fields = "";
   let vals = "";
   const params: (null | string | number | boolean)[] = [];
-  const entries = Object.entries(values).filter((x) => x[1] != undefined);
+  const entries = Object.entries(values).filter((x) => x[1] !== undefined);
   if (!entries.length) throw new Error("Cannot have an empty insert");
   entries.forEach(([key, value], i) => {
     params.push(value!);

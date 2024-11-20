@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { RouterLink } from 'vue-router'
-import { mdiMinus, mdiPlus } from '@mdi/js'
-import { getButtonColor } from '@/colors'
-import BaseIcon from '@/components/template/Elements/BaseIcon.vue'
-import AsideMenuList from '@/components/template/Layout/AsideMenuList.vue'
+import { ref, computed } from 'vue';
+import { RouterLink } from 'vue-router';
+import { mdiMinus, mdiPlus } from '@mdi/js';
+import { getButtonColor } from '@/colors';
+import BaseIcon from '@/components/template/Elements/BaseIcon.vue';
+import AsideMenuList from '@/components/template/Layout/AsideMenuList.vue';
 
 const props = defineProps({
   item: {
@@ -12,34 +12,34 @@ const props = defineProps({
     required: true,
   },
   isDropdownList: Boolean,
-})
+});
 
-const emit = defineEmits(['menu-click'])
+const emit = defineEmits(['menu-click']);
 
-const hasColor = computed(() => props.item && props.item.color)
+const hasColor = computed(() => props.item && props.item.color);
 
 const asideMenuItemActiveStyle = computed(() =>
   hasColor.value ? '' : 'aside-menu-item-active font-bold',
-)
+);
 
-const isDropdownActive = ref(false)
+const isDropdownActive = ref(false);
 
 const componentClass = computed(() => [
   props.isDropdownList ? 'py-3 px-6 text-sm' : 'py-3',
   hasColor.value
     ? getButtonColor(props.item.color, false, true)
     : `aside-menu-item dark:text-slate-300 dark:hover:text-white`,
-])
+]);
 
-const hasDropdown = computed(() => !!props.item.menu)
+const hasDropdown = computed(() => !!props.item.menu);
 
 const menuClick = (event) => {
-  emit('menu-click', event, props.item)
+  emit('menu-click', event, props.item);
 
   if (hasDropdown.value) {
-    isDropdownActive.value = !isDropdownActive.value
+    isDropdownActive.value = !isDropdownActive.value;
   }
-}
+};
 </script>
 
 <template>
@@ -65,7 +65,7 @@ const menuClick = (event) => {
       <span
         class="grow text-ellipsis line-clamp-1"
         :class="[
-          { 'pr-12': !hasDropdown },
+          { 'pr-3': !hasDropdown },
           vSlot && vSlot.isExactActive ? asideMenuItemActiveStyle : '',
         ]"
         >{{ item.label }}</span

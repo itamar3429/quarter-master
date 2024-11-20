@@ -7,7 +7,8 @@ import {
   // mdiCogOutline,
   // mdiEmail,
   mdiLogout,
-  mdiThemeLightDark
+  mdiThemeLightDark,
+  mdiTranslate,
 } from '@mdi/js';
 import { useI18n } from 'vue-i18n';
 
@@ -53,20 +54,30 @@ export default function navMenuItems() {
         //   label: 'Messages'
         // },
         {
-          isDivider: true
+          icon: mdiTranslate,
+          label: 'עברית',
+          lang: 'he',
+        },
+        {
+          icon: mdiTranslate,
+          label: 'English',
+          lang: 'en',
+        },
+        {
+          isDivider: true,
         },
         {
           icon: mdiLogout,
           label: t('nav.logout'),
-          isLogout: true
-        }
-      ]
+          isLogout: true,
+        },
+      ],
     },
     {
       icon: mdiThemeLightDark,
       label: 'Light/Dark',
       isDesktopNoLabel: true,
-      isToggleLightDark: true
+      isToggleLightDark: true,
     },
     // {
     //   icon: mdiGithub,
@@ -86,7 +97,7 @@ export default function navMenuItems() {
       icon: mdiLogout,
       label: t('nav.logout'),
       isDesktopNoLabel: true,
-      isLogout: true
-    }
+      isLogout: true,
+    },
   ];
 }

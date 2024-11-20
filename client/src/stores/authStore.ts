@@ -5,6 +5,7 @@ import fetchService from '../services/fetch.service';
 import { DateTime } from 'luxon';
 import type { RouteLocationNormalized, RouteLocationRaw } from 'vue-router';
 import type { TokenData } from '@/services/types';
+import { serverZone } from '@/constants';
 
 export const useAuthStore = defineStore('auth-store', {
   state(): {
@@ -24,7 +25,7 @@ export const useAuthStore = defineStore('auth-store', {
     registerToken(token: string) {
       const data = jwtDecode(token);
       const exprDate = DateTime.fromSeconds(data.exp!, {
-        zone: 'Asia/Jerusalem',
+        zone: serverZone,
       }).toLocal();
       const isExpired = exprDate <= DateTime.now();
       if (isExpired) {

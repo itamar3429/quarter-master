@@ -13,7 +13,7 @@ import { getTokenForUser } from "../auth/token";
 
 export const orgRouter = Router();
 
-orgRouter.get("/battalion", requireAuth("battalion"), async (req, res) => {
+orgRouter.get("/battalion", requireAuth(), async (req, res) => {
   try {
     const data = await getBattalion();
     res.json({

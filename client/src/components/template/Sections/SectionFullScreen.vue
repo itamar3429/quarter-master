@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useDarkModeStore } from '@/stores/darkMode'
-import { gradientBgPurplePink, gradientBgDark, gradientBgPinkRed } from '@/colors'
+import { computed } from 'vue';
+import { useDarkModeStore } from '@/stores/darkMode';
+import { gradientBgPurplePink, gradientBgDark, gradientBgPinkRed } from '@/colors';
 
 const props = defineProps({
   bg: {
@@ -9,22 +9,22 @@ const props = defineProps({
     required: true,
     validator: (value) => ['purplePink', 'pinkRed'].includes(value as any),
   },
-})
+});
 
 const colorClass = computed(() => {
-  if (useDarkModeStore().isEnabled) {
-    return gradientBgDark
+  if (useDarkModeStore().isDarkMode) {
+    return gradientBgDark;
   }
 
   switch (props.bg) {
     case 'purplePink':
-      return gradientBgPurplePink
+      return gradientBgPurplePink;
     case 'pinkRed':
-      return gradientBgPinkRed
+      return gradientBgPinkRed;
   }
 
-  return ''
-})
+  return '';
+});
 </script>
 
 <template>

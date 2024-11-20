@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BaseIcon from '@/components/template/Elements/BaseIcon.vue'
+import BaseIcon from '@/components/template/Elements/BaseIcon.vue';
 
 defineProps({
   icon: {
@@ -10,7 +10,11 @@ defineProps({
     type: String,
     default: null,
   },
-})
+  class: {
+    type: String,
+    default: '',
+  },
+});
 </script>
 
 <template>
@@ -18,6 +22,9 @@ defineProps({
     :path="icon"
     w="w-10"
     :h="h"
-    class="absolute top-0 left-0 z-10 pointer-events-none text-gray-500 dark:text-slate-400"
+    :class="[
+      $props.class,
+      'absolute top-0 left-0 z-10 pointer-events-none text-gray-500 dark:text-slate-400',
+    ]"
   />
 </template>

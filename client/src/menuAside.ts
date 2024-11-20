@@ -18,7 +18,7 @@ export default function getMenuItems() {
       hide: !isAllowedFor('battalion'),
     },
     {
-      to: '/user-management',
+      to: '/users',
       icon: mdiAccountMultiple,
       label: i18n.t('nav.users'),
     },

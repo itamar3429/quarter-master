@@ -1,1 +1,7 @@
 @tailwind components;
+
+@layer base {
+  select {
+    @apply rtl:bg-left;
+  }
+}

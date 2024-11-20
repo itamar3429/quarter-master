@@ -1,18 +1,22 @@
-import type { RouteLocationNormalized } from 'vue-router'
-import router from '../router'
-import { useAuthStore } from '../stores/authStore'
+import type { RouteLocationNormalized } from 'vue-router';
+import router from '../router';
+import { useAuthStore } from '../stores/authStore';
+import { accessEnums } from '@/constants';
 
 export function authRoute(to: RouteLocationNormalized) {
   if (to.meta.requireAuth) {
-    const authStore = useAuthStore()
+    const authStore = useAuthStore();
     if (!authStore.loggedIn) {
-      authStore.redirectUrl = to.fullPath
+      authStore.redirectUrl = to.fullPath;
       router.push({
         name: 'login',
-      })
-      return false
+      });
+      return false;
     }
-    return true
+    if (to.meta.includeLevels?.length) {
+      return to.meta.includeLevels.includes(accessEnums[authStore.tokenData!.role]);
+    }
+    return true;
   }
-  return true
+  return true;
 }

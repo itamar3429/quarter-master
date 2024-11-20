@@ -6,6 +6,7 @@ import BaseButtons from '@/components/template/Elements/BaseButtons.vue';
 import CardBox from '@/components/template/Cards/CardBox.vue';
 import OverlayLayer from '@/components/template/OverlayLayer.vue';
 import CardBoxComponentTitle from '@/components/template/Cards/CardBoxComponentTitle.vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   title: {
@@ -18,7 +19,6 @@ const props = defineProps({
   },
   buttonLabel: {
     type: String,
-    default: 'Done',
   },
   hasCancel: Boolean,
   modelValue: {
@@ -77,7 +77,12 @@ window.addEventListener('keydown', (e) => {
 
       <template #footer>
         <BaseButtons>
-          <BaseButton :label="buttonLabel" :color="button" @click="confirm" v-bind="btnProps" />
+          <BaseButton
+            :label="buttonLabel || $t('global.save')"
+            :color="button"
+            @click="confirm"
+            v-bind="btnProps"
+          />
           <BaseButton
             v-if="hasCancel"
             :label="$t('global.cancel')"

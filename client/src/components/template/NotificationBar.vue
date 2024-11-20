@@ -6,28 +6,20 @@ import BaseLevel from '@/components/template/Elements/BaseLevel.vue';
 import BaseIcon from '@/components/template/Elements/BaseIcon.vue';
 import BaseButton from '@/components/template/Elements/BaseButton.vue';
 
-const props = defineProps({
-  icon: {
-    type: String,
-    default: null,
-  },
-  outline: Boolean,
-  small: Boolean,
-  color: {
-    type: String,
-    required: true,
-  },
-});
+const props = defineProps<{
+  icon?: string;
+  outline?: boolean;
+  small?: boolean;
+  color: string;
+}>();
 
 const componentClass = computed(() =>
   props.outline ? colorsOutline[props.color] : [colorsBgLight[props.color]],
 );
 
-const isDismissed = ref(false);
-
-const dismiss = () => {
-  isDismissed.value = true;
-};
+defineEmits<{
+  (event: 'dismiss'): void;
+}>();
 
 const slots = useSlots();
 
@@ -36,7 +28,6 @@ const hasRightSlot = computed(() => slots.right);
 
 <template>
   <div
-    v-if="!isDismissed"
     :class="[
       ...componentClass,
       small ? 'pl-2 px-1 py-1' : 'px-3 py-6 md:py-3',
@@ -56,7 +47,14 @@ const hasRightSlot = computed(() => slots.right);
         <span class="text-center md:text-left md:py-2"><slot /></span>
       </div>
       <slot v-if="hasRightSlot" name="right" />
-      <BaseButton v-else :icon="mdiClose" small rounded-full color="white" @click="dismiss" />
+      <BaseButton
+        v-else
+        :icon="mdiClose"
+        small
+        rounded-full
+        :color="color"
+        @click="$emit('dismiss')"
+      />
     </BaseLevel>
   </div>
 </template>

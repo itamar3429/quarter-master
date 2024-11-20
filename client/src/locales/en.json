@@ -23,7 +23,8 @@
     "platoon": "Platoon",
     "platoons": "Platoons",
     "add_battalion": "Add Battalion",
-    "add_platoon": "Add Platoon"
+    "add_platoon": "Add Platoon",
+    "admin": "Admin"
   },
   "global": {
     "empty": "Nothing Here...",
@@ -31,10 +32,26 @@
     "name_invalid": "Name is invalid or taken",
     "500": "Something went wrong, Try again later",
     "close": "close",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "no_opts": "There aren't any options",
+    "created_date": "Created Date",
+    "invalid_selection": "Invalid Selection",
+    "save_success": "Saved Successfully"
   },
   "pagination": {
     "page": "Page",
     "of": "Of"
+  },
+  "users": {
+    "username": "Username",
+    "password": "Password",
+    "role": "Role",
+    "role_name": "Battalion / Platoon",
+    "add": "Add User",
+    "edit": "Edit User",
+    "password_invalid": "Password must be 6 to 20 characters long and can include English letters, numbers and #!",
+    "deleted": "Deleted Users",
+    "active": "Active Users"
   }
 }

@@ -1,63 +1,33 @@
-<script setup lang="ts">
-import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
-import { useMainStore } from '@/stores/main'
-import FormControlIcon from '@/components/template/form/FormControlIcon.vue'
+<script setup lang="ts" generic="T extends string | number">
+import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
+import { useMainStore } from '@/stores/main';
+import FormControlIcon from '@/components/template/form/FormControlIcon.vue';
 
-const props = defineProps({
-  name: {
-    type: String,
-    default: null,
-  },
-  id: {
-    type: String,
-    default: null,
-  },
-  autocomplete: {
-    type: String,
-    default: null,
-  },
-  maxlength: {
-    type: String,
-    default: null,
-  },
-  placeholder: {
-    type: String,
-    default: null,
-  },
-  inputmode: {
-    type: String,
-    default: null,
-  },
-  icon: {
-    type: String,
-    default: null,
-  },
-  options: {
-    type: Array,
-    default: null,
-  },
-  type: {
-    type: String,
-    default: 'text',
-  },
-  modelValue: {
-    type: [String, Number, Boolean, Array, Object],
-    default: '',
-  },
-  required: Boolean,
-  borderless: Boolean,
-  transparent: Boolean,
-  ctrlKFocus: Boolean,
-})
+const props = defineProps<{
+  name?: string;
+  id?: string;
+  autocomplete?: string;
+  maxlength?: string;
+  placeholder?: string;
+  inputmode?: string | null;
+  icon?: string | null;
+  options?: { id: T; label: string }[];
+  type: 'text' | 'select' | 'textarea' | 'password';
+  modelValue: T | null;
+  required?: boolean;
+  borderless?: boolean;
+  transparent?: boolean;
+  ctrlKFocus?: boolean;
+}>();
 
-const emit = defineEmits(['update:modelValue', 'setRef'])
+const emit = defineEmits(['update:modelValue', 'setRef']);
 
 const computedValue = computed({
   get: () => props.modelValue as any,
   set: (value) => {
-    emit('update:modelValue', value)
+    emit('update:modelValue', value);
   },
-})
+});
 
 const inputElClass = computed(() => {
   const base = [
@@ -66,73 +36,74 @@ const inputElClass = computed(() => {
     computedType.value === 'textarea' ? 'h-24' : 'h-12',
     props.borderless ? 'border-0' : 'border',
     props.transparent ? 'bg-transparent' : 'bg-white dark:bg-slate-800',
-  ]
+  ];
 
   if (props.icon) {
-    base.push('pl-10')
+    base.push('pl-10');
   }
 
-  return base
-})
+  return base;
+});
 
-const computedType = computed(() => (props.options ? 'select' : props.type))
+const computedType = computed(() => props.type || 'text');
 
-const controlIconH = computed(() => (props.type === 'textarea' ? 'h-full' : 'h-12'))
+const controlIconH = computed(() => (props.type === 'textarea' ? 'h-full' : 'h-12'));
 
-const mainStore = useMainStore()
+const mainStore = useMainStore();
 
-const selectEl = ref(null)
+const selectEl = ref(null);
 
-const textareaEl = ref(null)
+const textareaEl = ref(null);
 
-const inputEl = ref<any>(null)
+const inputEl = ref<any>(null);
 
 onMounted(() => {
   if (selectEl.value) {
-    emit('setRef', selectEl.value)
+    emit('setRef', selectEl.value);
   } else if (textareaEl.value) {
-    emit('setRef', textareaEl.value)
+    emit('setRef', textareaEl.value);
   } else {
-    emit('setRef', inputEl.value)
+    emit('setRef', inputEl.value);
   }
-})
+});
 
 if (props.ctrlKFocus) {
   const fieldFocusHook = (e) => {
     if (e.ctrlKey && e.key === 'k') {
-      e.preventDefault()
-      inputEl.value.focus()
+      e.preventDefault();
+      inputEl.value.focus();
     } else if (e.key === 'Escape') {
-      inputEl.value.blur()
+      inputEl.value.blur();
     }
-  }
+  };
 
   onMounted(() => {
     if (!mainStore.isFieldFocusRegistered) {
-      window.addEventListener('keydown', fieldFocusHook)
-      mainStore.isFieldFocusRegistered = true
+      window.addEventListener('keydown', fieldFocusHook);
+      mainStore.isFieldFocusRegistered = true;
     } else {
       // console.error('Duplicate field focus event')
     }
-  })
+  });
 
   onBeforeUnmount(() => {
-    window.removeEventListener('keydown', fieldFocusHook)
-    mainStore.isFieldFocusRegistered = false
-  })
+    window.removeEventListener('keydown', fieldFocusHook);
+    mainStore.isFieldFocusRegistered = false;
+  });
 }
 </script>
 
 <template>
   <div class="relative">
     <select
+      class="rtl:order-last"
       v-if="computedType === 'select'"
       :id="id"
       v-model="computedValue"
       :name="name"
-      :class="inputElClass"
+      :class="inputElClass.concat(['rtl:pl-0 rtl:pr-10'])"
     >
-      <option v-for="option in options as any[]" :key="option.id ?? option" :value="option">
+      <option v-for="option in options" :key="option.id ?? option" :value="option.id">
         {{ option.label ?? option }}
       </option>
     </select>
@@ -153,13 +124,18 @@ if (props.ctrlKFocus) {
       v-model="computedValue"
       :name="name"
       :maxlength="maxlength"
-      :inputmode="(inputmode as any)"
+      :inputmode="inputmode as any"
       :autocomplete="autocomplete"
       :required="required"
       :placeholder="placeholder"
       :type="computedType"
       :class="inputElClass"
     />
-    <FormControlIcon v-if="icon" :icon="icon" :h="controlIconH" />
+    <FormControlIcon
+      v-if="icon"
+      class="rtl:order-first rtl:right-0"
+      :icon="icon"
+      :h="controlIconH"
+    />
   </div>
 </template>

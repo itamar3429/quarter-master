@@ -45,6 +45,16 @@ const router = createRouter({
       name: 'battalion-structure',
       component: () => import('@/views/OrgStructure.vue'),
     },
+    {
+      meta: {
+        title: 'Users Management',
+        requireAuth: true,
+        includeLevels: [1, 2],
+      },
+      path: '/users',
+      name: 'users',
+      component: () => import('@/views/UsersManagement.vue'),
+    },
 
     /**
      *
@@ -135,7 +145,6 @@ router.beforeEach((to, from, next) => {
     useAuthStore().revokeToken();
   }
   const allowed = authRoute(to);
-  console.log(allowed, to.fullPath);
   if (allowed) {
     next();
   }

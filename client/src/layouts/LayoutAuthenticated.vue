@@ -1,41 +1,41 @@
 <script setup lang="ts">
-import { mdiForwardburger, mdiBackburger, mdiMenu } from '@mdi/js'
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import menuAside from '@/menuAside'
-import menuNavBar from '@/menuNavBar'
-import { useDarkModeStore } from '@/stores/darkMode'
-import BaseIcon from '@/components/template/Elements/BaseIcon.vue'
-import FormControl from '@/components/template/form/FormControl.vue'
-import NavBar from '@/components/template/Layout/NavBar.vue'
-import NavBarItemPlain from '@/components/template/Layout/NavBarItemPlain.vue'
-import AsideMenu from '@/components/template/Layout/AsideMenu.vue'
-import FooterBar from '@/components/template/form/FooterBar.vue'
+import { mdiForwardburger, mdiBackburger, mdiMenu } from '@mdi/js';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import menuAside from '@/menuAside';
+import menuNavBar from '@/menuNavBar';
+import { useDarkModeStore } from '@/stores/darkMode';
+import BaseIcon from '@/components/template/Elements/BaseIcon.vue';
+import FormControl from '@/components/template/form/FormControl.vue';
+import NavBar from '@/components/template/Layout/NavBar.vue';
+import NavBarItemPlain from '@/components/template/Layout/NavBarItemPlain.vue';
+import AsideMenu from '@/components/template/Layout/AsideMenu.vue';
+import FooterBar from '@/components/template/form/FooterBar.vue';
 
-const layoutAsidePadding = 'xl:pl-60'
+const layoutAsidePadding = 'xl:pl-60';
 
-const darkModeStore = useDarkModeStore()
+const darkModeStore = useDarkModeStore();
 
-const router = useRouter()
+const router = useRouter();
 
-const isAsideMobileExpanded = ref(false)
-const isAsideLgActive = ref(false)
+const isAsideMobileExpanded = ref(false);
+const isAsideLgActive = ref(false);
 
 router.beforeEach(() => {
-  isAsideMobileExpanded.value = false
-  isAsideLgActive.value = false
-})
+  isAsideMobileExpanded.value = false;
+  isAsideLgActive.value = false;
+});
 
 const menuClick = (event, item) => {
   if (item.isToggleLightDark) {
-    darkModeStore.set()
+    darkModeStore.setDarkMode();
   }
 
   if (item.isLogout) {
-    router.push('/logout')
+    router.push('/logout');
     //
   }
-}
+};
 </script>
 
 <template>

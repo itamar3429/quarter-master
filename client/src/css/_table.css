@@ -17,16 +17,19 @@
   }
 
   td:not(:first-child) {
-    @apply lg:border-l lg:border-t-0 lg:border-r-0 lg:border-b-0 lg:border-gray-100 lg:dark:border-slate-700;
+    @apply rtl:last:lg:border-0 lg:border-l lg:border-t-0 lg:border-r-0 lg:border-b-0 lg:border-gray-100 lg:dark:border-slate-700;
+  }
+  td:first-child {
+    @apply rtl:lg:border-l rtl:lg:border-t-0 rtl:lg:border-r-0 rtl:lg:border-b-0 rtl:lg:border-gray-100 rtl:lg:dark:border-slate-700;
   }
 
   th {
-    @apply lg:text-left lg:p-3;
+    @apply lg:text-left lg:p-3 rtl:lg:text-right;
   }
 
   td {
     @apply flex justify-between text-right py-3 px-4 align-top border-b border-gray-100
-      lg:table-cell lg:text-left lg:p-3 lg:align-middle lg:border-b-0 dark:border-slate-800;
+      lg:table-cell lg:text-left rtl:lg:text-right lg:p-3 lg:align-middle lg:border-b-0 dark:border-slate-800;
   }
 
   td:last-child {
